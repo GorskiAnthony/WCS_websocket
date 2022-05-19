@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { io } from "socket.io-client";
 
 function App() {
-  const [messageList, setMessageList] = useState([]);
-  const [nickName, setNickName] = useState("");
-  const [newMessageText, setNewMessageText] = useState("");
-  const [socket, setSocket] = useState(null);
+  const ENDPOINT = "http://localhost:5050";
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  useEffect(() => {
+    const socket = io(ENDPOINT);
+    // ... other codes
 
-  return (
+    // Emitting an event that will trigger in the backend
+    socket.emit("connection", {
+      message: "Hello from the frontend",
+    });
+
+    // ... other codes
+  }, []);
+
+  /*return (
     <div className="App">
       <h2>Messages</h2>
       {messageList.map((message) => {
@@ -41,6 +47,12 @@ function App() {
         />
         <input type="submit" value="send" />
       </form>
+    </div>
+  );*/
+
+  return (
+    <div>
+      <h1>Hello World</h1>
     </div>
   );
 }
