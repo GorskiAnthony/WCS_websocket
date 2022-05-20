@@ -8,14 +8,12 @@ const server = http.createServer(app);
 app.use(cors());
 
 const io = require("socket.io")(server, { cors: { origin: "*" } });
-
 const port = process.env.PORT || 5050;
 
 io.on("connection", (socket) => {
   console.log("New user : ", socket.id);
 
   socket.on("sendMessage", (data) => {
-    console.log(data);
     io.emit("newMessage", data);
   });
 
