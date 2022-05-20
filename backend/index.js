@@ -1,19 +1,33 @@
-// Your code goes here
 const express = require("express");
-const app = express();
 const http = require("http");
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server);
+const cors = require("cors");
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
-});
+const app = express();
+const server = http.createServer(app);
+
+app.use(cors());
+
+const io = require("socket.io")(server, { cors: { origin: "*" } });
+
+const port = process.env.PORT || 5050;
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
+  console.log("New user : ", socket.id);
+
+  socket.on("sendMessage", (data) => {
+    console.log(data);
+    io.emit("newMessage", data);
+  });
+
+  // disconnect
+  socket.on("disconnect", () => {
+    console.log("user disconnected: ", socket.id);
+  });
 });
 
-server.listen(3000, () => {
-  console.log("listening on *:3000");
+server.listen(port, (err) => {
+  if (err) {
+    console.log(err);
+  }
+  console.log(`server is listening on port ${port}`);
 });

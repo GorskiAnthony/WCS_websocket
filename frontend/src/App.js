@@ -1,27 +1,33 @@
 import React, { useEffect } from "react";
 import { io } from "socket.io-client";
 
-function App() {
+const App = () => {
+  const [messageList, setMessageList] = React.useState([]);
+  const [newMessageText, setNewMessageText] = React.useState("");
+  const [nickName, setNickName] = React.useState("");
+  const [socket, setSocket] = React.useState(null);
+
   const ENDPOINT = "http://localhost:5050";
 
   useEffect(() => {
     const socket = io(ENDPOINT);
-    // ... other codes
-
-    // Emitting an event that will trigger in the backend
-    socket.emit("connection", {
-      message: "Hello from the frontend",
+    socket.on("newMessage", (message) => {
+      setMessageList([...messageList, message]);
     });
+    setSocket(socket);
+  }, [messageList]);
 
-    // ... other codes
-  }, []);
-
-  /*return (
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    socket.emit("sendMessage", { author: nickName, text: newMessageText });
+    setNewMessageText("");
+  };
+  return (
     <div className="App">
       <h2>Messages</h2>
-      {messageList.map((message) => {
+      {messageList.map((message, id) => {
         return (
-          <div key={message.id}>
+          <div key={id}>
             {message.author} : {message.text}
           </div>
         );
@@ -48,13 +54,7 @@ function App() {
         <input type="submit" value="send" />
       </form>
     </div>
-  );*/
-
-  return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
   );
-}
+};
 
 export default App;
