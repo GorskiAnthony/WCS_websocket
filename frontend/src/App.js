@@ -29,7 +29,7 @@ function App() {
   // Mise à jour de la liste des messages
   useEffect(() => {
     //!TO DO: récupération des messages du serveur
-  }, [messageList]);
+  }, [messageList, socket]);
 
   return (
     <div className="App">
