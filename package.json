@@ -1,0 +1,25 @@
+{
+	"name": "wcs_websocket",
+	"version": "1.0.0",
+	"description": "Nous allons manipuler les websokets avec React & Node.js.",
+	"main": "index.js",
+	"scripts": {
+		"setup": "npm i && npm --prefix ./frontend i && npm --prefix ./backend i",
+		"dev": "concurrently -n front,back -c green,yellow -t \"HH:mm:ss\" -p \"{name} {time}\" \"npm --prefix ./frontend run start\" \"npm --prefix ./backend run devwatch\"",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/GorskiAnthony/WCS_websocket.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/GorskiAnthony/WCS_websocket/issues"
+	},
+	"homepage": "https://github.com/GorskiAnthony/WCS_websocket#readme",
+	"devDependencies": {
+		"concurrently": "^7.6.0"
+	}
+}
