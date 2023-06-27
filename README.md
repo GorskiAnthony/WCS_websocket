@@ -33,20 +33,20 @@ const server = http.createServer(app);
 
 ### Ensuite ?
 
-Ensuite nous allons nous intéresser à la partie `socket.io` :
+Ensuite, nous allons nous intéresser à la partie `socket.io` :
 
 ```js
 // Nous allons utiliser le paquet socket.io
 // Je require la librairie socket.io et je l'assigne à une variable `io`, celui-ci prendra mon serveur HTTP
 const io = require("socket.io")(server);
 
-// io.on permet de lister les événements qui se passent sur le serveur
+// io.on permet de lister les événements qui se passent dans le serveur
 // Dans notre cas, nous allons lister l'événement `connection`
 io.on("connection", (socket) => {
     // Je récupère l'id du socket que je définis en tant que mon user.
     console.log("New user : ", socket.id);
 
-    // Socket.on, comme pour io, permet de lister les événements qui se passent sur le client
+    // Socket.on, comme pour io, permet de lister les événements qui se passent côté client
     socket.on("sendMessage", (data) => {
         // io.emit permet d'envoyer un message à tous les clients connectés, en passant comme argument `data`
         io.emit("newMessage", data);
@@ -101,7 +101,7 @@ server.listen(port, (err) => {
 
 ## 🖥 Frontend
 
-Nous devons depuis le frontend utiliser un pacquage concernant `socket.io-client`.
+Nous devons, depuis le frontend, utiliser un package concernant `socket.io-client`.
 
 ```shell
 npm install socket.io-client
@@ -112,7 +112,7 @@ Ensuite, on va l'utiliser dans notre code :
 ```js
 // App.js
 
-// Nous allons utiliser le paquet socket.io-client du coté de React
+// Nous allons utiliser le paquet socket.io-client du côté de React
 import { io } from "socket.io-client";
 ```
 
